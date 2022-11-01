@@ -1,0 +1,9 @@
+<script>
+  async function showSite() {
+    const links = await fetch("https://e621.net/posts?tags=fav%3ATransAlita").then(r => r.text()).then(t => console.log(t.match(/https:.*?preview\/.*?["' ]/gm).map(e => e.slice(0, -1).replace(/preview/gm, "sample"))))
+    
+  }
+  if (prompt("Password?") == "yee") {
+    showSite()
+  }
+</script>
