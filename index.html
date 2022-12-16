@@ -1,7 +1,25 @@
+<style>
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	img {
+		width: 100vw;
+	}
+</style>
 <script>
 	async function showSite() {
-		const links = await fetch("https://e621.net/posts?tags=fav%3ATransAlita").then(r => r.text()).then(t => console.log(t.match(/https:.*?preview\/.*?["' ]/gm).map(e => e.slice(0, -1).replace(/preview/gm, "sample"))))
-		
+	    let links = await fetch("https://e621.net/posts?tags=fav%3ATransAlita")
+		.then(r => r.text()).then(t => {
+		    return t.match(/https:.*?preview\/.*?["' ]/gm)
+			.map(e => e.slice(0, -1).replace(/preview/gm, "sample"))
+		})
+	    links = Array.from(new Set(links))
+		links.forEach(l => {
+		const el = new Image()
+		el.src = l
+		document.body.appendChild(el)
+	    })
 	}
 	if (prompt("Password?") == "yee") {
 		showSite()
