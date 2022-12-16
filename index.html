@@ -12,7 +12,8 @@
 	    let links = await fetch("https://e621.net/posts?tags=fav%3ATransAlita")
 		.then(r => r.text()).then(t => {
 		    return t.match(/https:.*?preview\/.*?["' ]/gm)
-			.map(e => e.slice(0, -1).replace(/preview/gm, "sample"))
+			.map(e => e.slice(0, -1).replace(/preview/gm, "sample").split('"')[0])
+			.filter(e => e.indexOf("crop") == 0 && e.indexOf(".webm") == 0)
 		})
 	    links = Array.from(new Set(links))
 		links.forEach(l => {
